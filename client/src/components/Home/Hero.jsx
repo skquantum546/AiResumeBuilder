@@ -33,7 +33,7 @@ const Hero = () => {
                         <Link to="/app?state-register" className="hidden md:block px-6 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white">
                             Get started
                         </Link>
-                        <Link to="/app?state=login" className="hidden md:block px-6 py-2 bg-green-500 border active:scale-95 hover:bg-green-500 transition-all rounded-full text-slate-700 hover:text-slate-900" >
+                        <Link to="/login" className="hidden md:block px-6 py-2 bg-green-500 border active:scale-95 hover:bg-green-500 transition-all rounded-full text-slate-700 hover:text-slate-900" >
                             Login
                         </Link>
                     </div>
