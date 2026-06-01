@@ -46,7 +46,7 @@ const EducationForm = ({data,onChange}) => {
                 <p className="text-sm">Click "Add Education" to get started.</p>
             </div>
         ):(
-            <div className="spaace-y-4">
+            <div className="space-y-4">
                 {data.map((education,index)=>(
                     <div key={index} className="p-4 border-gray-200 rounded-lg space-y-3">
                         <div className="flex justify-between items-start">
