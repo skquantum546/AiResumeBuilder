@@ -1,4 +1,4 @@
-import { Plus, Sparkles,Trash2 } from 'lucide-react'
+import { Briefcase, Plus, Sparkles,Trash2 } from 'lucide-react'
 import React from 'react'
 
 const ExperienceForm = ({data,onChange}) => {
@@ -42,7 +42,7 @@ const ExperienceForm = ({data,onChange}) => {
 
         {data.length === 0?(
             <div className="text-center py-8 text-gray-500">
-                <BriefCase className="w-12 h-12 mx-auto mb-3 text-gray-300"/>
+                <Briefcase className="w-12 h-12 mx-auto mb-3 text-gray-300"/>
                 <p>No Work Experience Added Yet.</p>
                 <p className="text-sm">Click "Add Experience" to get started.</p>
             </div>
@@ -76,7 +76,7 @@ const ExperienceForm = ({data,onChange}) => {
                                         Enhance With AI.
                                     </button>
                                 </div>
-                                <textarea value={experience.description || ""} onChange={()=>updateExperience(index,"description",e.target.value)} rows={4} className="w-full text-sm px-3 py-2 rounded-lg resize-none" placeholder="Describe your key responsibilities and achievements..." />
+                                <textarea value={experience.description || ""} onChange={(e)=>updateExperience(index,"description",e.target.value)} rows={4} className="w-full text-sm px-3 py-2 rounded-lg resize-none" placeholder="Describe your key responsibilities and achievements..." />
                             </div>
                         </div>
                     </div>

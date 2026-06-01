@@ -57,7 +57,7 @@ const EducationForm = ({data,onChange}) => {
                         </div>
 
                         <div className="grid md:grid-cols-2 gap-3">
-                            <input value={education.company || ""} onChange={(e)=>updateEducation(index,"insititution",e.target.value)} type="text" placeholder="Institution Name" className="px-3 py-2 text-sm"/>
+                            <input value={education.institution || ""} onChange={(e)=>updateEducation(index,"institution",e.target.value)} type="text" placeholder="Institution Name" className="px-3 py-2 text-sm"/>
                             <input value={education.degree || ""} onChange={(e)=>updateEducation(index,"degree",e.target.value)} type="text" placeholder="Degree (e.g. Bachelor's Master's)" className="px-3 py-2 text-sm"/>
                             <input value={education.field || ""} onChange={(e)=>updateEducation(index,"field",e.target.value)} type="text" className="px-3 py-2 text-sm rounded-lg" placeholder="Field Of Study"/>
                             <input value={education.graduation_date || ""} onChange={(e)=>updateEducation(index,"graduation_date",e.target.value)} type="month" className="px-3 py-2 text-sm diasbled:bg-gray-100"/>
