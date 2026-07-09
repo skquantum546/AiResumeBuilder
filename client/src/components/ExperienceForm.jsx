@@ -1,8 +1,14 @@
-import { Briefcase, Plus, Sparkles,Trash2 } from 'lucide-react'
-import React from 'react'
+import { Briefcase, Loader2, Plus, Sparkles, Trash2 } from 'lucide-react'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
+import api from '../configs/api';
 
 const ExperienceForm = ({data,onChange}) => {
 
+    const token = useSelector(state=>state.auth.token) || localStorage.getItem('token')
+    const [generatingIndex,setGeneratingIndex]=useState(-1);
+ 
     const addExperience=()=>{
         const newExperience={
             company:"",
@@ -26,6 +32,31 @@ const ExperienceForm = ({data,onChange}) => {
         onChange(updated);
     }
 
+    const generateDescription=async (index)=>{
+        if (!token) {
+            toast.error('Please login to use AI enhancements')
+            return
+        }
+
+        setGeneratingIndex(index);
+        const experience=data[index];
+        const prompt = experience.description
+            ? `Rewrite and improve this job description for ${experience.position || 'the role'} at ${experience.company || 'the company'}: ${experience.description}`
+            : `Create a polished job description for ${experience.position || 'the role'} at ${experience.company || 'the company'}.`
+
+        try{
+            const {data} = await api.post('/api/ai/enhanced-job-desc',{userContent:prompt},{headers:{Authorization:`Bearer ${token}`}})
+            updateExperience(index,"description",data.enhancedContent)
+        }
+        catch(error){
+            const message = error?.response?.data?.message || error.message || 'Failed to enhance description'
+            toast.error(message)
+        }
+        finally{
+            setGeneratingIndex(-1)
+        }
+    }
+
   return (
     <div className="space-y-6"> 
         <div className="flex items-center justify-between">
@@ -47,7 +78,7 @@ const ExperienceForm = ({data,onChange}) => {
                 <p className="text-sm">Click "Add Experience" to get started.</p>
             </div>
         ):(
-            <div className="spaace-y-4">
+            <div className="space-y-4">
                 {data.map((experience,index)=>(
                     <div key={index} className="p-4 border-gray-200 rounded-lg space-y-3">
                         <div className="flex justify-between items-start">
@@ -61,7 +92,7 @@ const ExperienceForm = ({data,onChange}) => {
                             <input value={experience.company || ""} onChange={(e)=>updateExperience(index,"company",e.target.value)} type="text" placeholder="Company Name" className="px-3 py-2 text-sm rounded-lg"/>
                             <input value={experience.position || ""} onChange={(e)=>updateExperience(index,"position",e.target.value)} type="text" placeholder="Job Title" className="px-3 py-2 text-sm rounded-lg"/>
                             <input value={experience.start_date || ""} onChange={(e)=>updateExperience(index,"start_date",e.target.value)} type="month" className="px-3 py-2 text-sm rounded-lg"/>
-                            <input value={experience.end_date || ""} onChange={(e)=>updateExperience(index,"end_date",e.target.value)} type="month" disabled={experience.is_current} className="px-3 py-2 text-sm rounded-lg diasbled:bg-gray-100"/>
+                            <input value={experience.end_date || ""} onChange={(e)=>updateExperience(index,"end_date",e.target.value)} type="month" disabled={experience.is_current} className="px-3 py-2 text-sm rounded-lg disabled:bg-gray-100"/>
 
                             <label className="flex items-center gap-2">
                                 <input type="checkbox" checked={experience.is_current || false} onChange={(e)=>{updateExperience(index,"is_current",e.target.checked?true:false);}} className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"/>
@@ -71,8 +102,10 @@ const ExperienceForm = ({data,onChange}) => {
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
                                     <label className="text-sm font-medium text-gray-700">Job Description</label>
-                                    <button className="flex items-center gap-1 px-2 py-1 text-xs bg-purple-200 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
-                                        <Sparkles className="w-3 h-3" />
+                                    <button onClick={()=>generateDescription(index)} disabled={generatingIndex===index || !experience.position || !experience.company} className="flex items-center gap-1 px-2 py-1 text-xs bg-purple-200 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50">
+                                        {generatingIndex===index?(<Loader2 className="w-3 h-3 animate-spin"/>):(
+                                            <Sparkles className="w-3 h-3" />
+                                        )}
                                         Enhance With AI.
                                     </button>
                                 </div>

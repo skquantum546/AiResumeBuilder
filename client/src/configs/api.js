@@ -8,10 +8,11 @@ api.interceptors.request.use((config) => {
     const headers = config.headers || {}
     const authHeader = headers.Authorization || headers.authorization
 
-    if (authHeader && typeof authHeader === 'string' && !authHeader.startsWith('Bearer ')) {
+    if (authHeader && typeof authHeader === 'string') {
+        const normalizedHeader = authHeader.startsWith('Bearer ') ? authHeader : `Bearer ${authHeader}`
         config.headers = {
             ...headers,
-            Authorization: `Bearer ${authHeader}`
+            Authorization: normalizedHeader
         }
     }
 

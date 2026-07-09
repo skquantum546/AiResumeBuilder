@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaLinkedin } from "react-icons/fa";
 import { BriefcaseBusiness, Mail, MapPin, Phone, User, Globe } from 'lucide-react'
+import { getImageUrl } from '../utils/imageHelper'
 const PersonalInfoForm = ({data,onChange,removeBackground,setRemoveBackground}) => {
     const handleChange=(field,value)=>{
         onChange({...data,[field]:value})
@@ -23,7 +24,7 @@ const PersonalInfoForm = ({data,onChange,removeBackground,setRemoveBackground}) 
         <div className="flex items-center gap-2">
             <label>
                 {data.image?(
-                    <img src={typeof data.image==='string'?data.image:URL.createObjectURL(data.image)} alt="user-image" className="w-16 h-16 rounded-full object-cover mt-5 ring ring-slate-300 hover:opacity-80"/>
+                    <img src={getImageUrl(data.image)} alt="user-image" className="w-16 h-16 rounded-full object-cover mt-5 ring ring-slate-300 hover:opacity-80"/>
                 ):(
                     <div className="inline-flex items-center gap-2 mt-5 text-slate-600 hover:text-slate-700 cursor-pointer">
                         <User className="size-10 p-2.5 border rounded-full"/>

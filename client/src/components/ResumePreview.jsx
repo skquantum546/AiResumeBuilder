@@ -26,7 +26,7 @@ const ResumePreview = ({data,template,accentColor,classes=""}) => {
             </div>
         </div>
 
-        <style jsx>
+        <style>
             {`
                 @page{
                     size:letter;
@@ -34,26 +34,42 @@ const ResumePreview = ({data,template,accentColor,classes=""}) => {
                 }
                 @media print{
                     html,body{
-                        width:8.5in;
-                        height:11in;
-                        overflow:hidden;
+                        width:8.5in !important;
+                        height:11in !important;
+                        margin:0 !important;
+                        padding:0 !important;
+                        overflow:visible !important;
+                        background: #fff !important;
+                        color: #000 !important;
                     }
                     body * {
-                        visibility:hidden;
+                        visibility:hidden !important;
                     }
-                    #resume-preview,#resume-preview*{
-                        visibility:visible;
+                    #resume-preview,
+                    #resume-preview * {
+                        visibility:visible !important;
                     }
-                    #resume-preview{
-                        position:absolute;
-                        left:0;
-                        top:0;
-                        width:100%;
-                        height:auto;
-                        margin:0;
-                        padding:0;
+                    #resume-preview {
+                        position:fixed !important;
+                        left:0 !important;
+                        top:0 !important;
+                        width:100% !important;
+                        height:auto !important;
+                        margin:0 !important;
+                        padding:0 !important;
                         box-shadow:none !important;
-                        border:none !important
+                        border:none !important;
+                        background: #fff !important;
+                    }
+                    #resume-preview p,
+                    #resume-preview span,
+                    #resume-preview h1,
+                    #resume-preview h2,
+                    #resume-preview h3,
+                    #resume-preview h4,
+                    #resume-preview h5,
+                    #resume-preview h6 {
+                        color: #000 !important;
                     }
                 }
             `}

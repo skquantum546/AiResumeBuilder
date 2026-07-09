@@ -19,7 +19,7 @@ const SkillsForm = ({data,onChange}) => {
     const handleKeyPress=(e)=>{
         if(e.key==="Enter"){
             e.preventDefault();
-            addSKill();
+            addSkill();
         }
     }
   return (

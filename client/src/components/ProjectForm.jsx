@@ -1,6 +1,7 @@
 import { GraduationCap,Trash2,Plus } from 'lucide-react';
 import React from 'react'
 
+
 const ProjectForm = ({data,onChange}) => {
 
     const addProject=()=>{

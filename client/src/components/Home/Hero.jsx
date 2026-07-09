@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 const Hero = () => {
+
+    const {user}=useSelector(state=>state.auth)
 
     const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -30,11 +32,14 @@ const Hero = () => {
                     </div>
 
                     <div className="flex gap-2">
-                        <Link to="/app?state-register" className="hidden md:block px-6 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white">
+                        <Link to="/app?state=register" className="hidden md:block px-6 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white" hidden={user}>
                             Get started
                         </Link>
-                        <Link to="/login" className="hidden md:block px-6 py-2 bg-green-500 border active:scale-95 hover:bg-green-500 transition-all rounded-full text-slate-700 hover:text-slate-900" >
+                        <Link to="/app?state=register" className="hidden md:block px-6 py-2 bg-grey-500 border active:scale-95 hover:bg-grey-800 transition-all rounded-full text-slate-700 hover:text-slate-900" hidden={user}>
                             Login
+                        </Link>
+                        <Link to='/app' className='hidden md:block px-8 py-2 bg-green-500 hover:bg-green-700 active:scale-95 hover:bg-slate-50 transitionn-all rounded-full text-slate-700 hover:text-slate-900' hidden={!user}>
+                            Dashboard
                         </Link>
                     </div>
 
