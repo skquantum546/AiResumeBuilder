@@ -18,7 +18,7 @@ export const registerUser=async(req,res)=>{
 
         //check if user already exists
 
-        const user=await User.finOne({email});
+        const user=await User.findOne({email});
         if(user){
             return res.status(400).json({message:"User already exists"});
         }
@@ -46,7 +46,7 @@ export const loginUser=async(req,res)=>{
 
         //check if user exists
 
-        const user=await User.finOne({email});
+        const user=await User.findOne({email});
         if(!user){
             return res.status(400).json({message:"Invalid email or password"});
         }
@@ -77,7 +77,7 @@ export const getUserById=async(req,res)=>{
         const userId=req.userId;
         //check if user exists
 
-        const user=await user.findById(userId);
+        const user=await User.findById(userId);
         if(!user){
             return res.status(404).json({message:"User not found"})
         }
