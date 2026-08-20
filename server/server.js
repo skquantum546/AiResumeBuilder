@@ -10,7 +10,7 @@ const app=express();
 const PORT=process.env.PORT || 3000;
 
 //Database connection
-await connectDB()
+// await connectDB()
 
 app.use(express.json());
 app.use(cors());
@@ -23,6 +23,7 @@ app.use('/api/users',userRouter);
 app.use('/api/resumes',resumeRouter)
 app.use('/api/ai',aiRouter)
 
-app.listen(PORT,()=>{
+app.listen(PORT, async ()=>{
+    await connectDB()
     console.log(`Server is running on port ${PORT}`);
 });
